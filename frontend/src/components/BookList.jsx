@@ -49,7 +49,7 @@ const styles = {
   sidebar: {
     width: "250px",
     padding: "1rem",
-    background: "#f4f4f4",
+    background: "#ee1fa980",
     borderRadius: "10px",
     height: "100%",
   },

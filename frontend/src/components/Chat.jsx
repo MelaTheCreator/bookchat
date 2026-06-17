@@ -80,11 +80,11 @@ export default function Chat({ bookId, chunkIndex }) {
     <div style={styles.wrapper}>
       {/* Toggle Button */}
       <button style={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "Chat einklappen" : "Chat ausklappen"}
+        {isOpen ? "close Chat" : "open Chat"}
       </button>
 
       {/* Wenn geschlossen */}
-      {!isOpen && <div style={styles.closedInfo}>Chat ist eingeklappt</div>}
+      {!isOpen && <div style={styles.closedInfo}></div>}
 
       {/* Wenn offen */}
       {isOpen && (
@@ -97,7 +97,7 @@ export default function Chat({ bookId, chunkIndex }) {
           <div style={styles.messages}>
             {messages.map((m, i) => (
               <div key={i} style={styles.message}>
-                <strong>{m.username}:</strong> {m.text}
+                <strong style={styles.username}>{m.username}:</strong> {m.text}
               </div>
             ))}
           </div>
@@ -107,7 +107,7 @@ export default function Chat({ bookId, chunkIndex }) {
               style={styles.input}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Nachricht eingeben..."
+              placeholder="write a message..."
             />
             <button onClick={sendMessage}>send</button>
           </div>
@@ -126,15 +126,18 @@ const styles = {
   },
   toggleBtn: {
     marginBottom: "0.5rem",
-    padding: "0.5rem",
+    padding: "1rem",
     cursor: "pointer",
+    background: "#ee1fa980",
+    borderRadius: "10px",
+    border: "none",
   },
   closedInfo: {
     fontStyle: "italic",
     color: "#666",
   },
   chatBox: {
-    backgroundColor: "#e9e9ed",
+    background: "#ee1fa980",
     border: "1px solid #ccc",
     borderRadius: "10px",
     padding: "1rem",
@@ -147,8 +150,8 @@ const styles = {
     marginBottom: "0.5rem",
   },
   warning: {
-    background: "#ffe08a",
-    color: "#7a4e00",
+    background: "#ee1fa980",
+    color: "#2c09f1",
     padding: "0.5rem",
     borderRadius: "4px",
     marginBottom: "0.5rem",
@@ -166,6 +169,9 @@ const styles = {
   },
   message: {
     marginBottom: "0.5rem",
+  },
+  username: {
+    color: "#2c09f1",
   },
   inputRow: {
     display: "flex",

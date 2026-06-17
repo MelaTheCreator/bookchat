@@ -36,7 +36,7 @@ export default function Header() {
 const styles = {
   header: {
     padding: "1rem",
-    background: "#222",
+    background: "#2c09f1",
     color: "white",
     display: "flex",
     justifyContent: "space-between",
