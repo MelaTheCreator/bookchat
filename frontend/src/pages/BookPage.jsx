@@ -61,7 +61,11 @@ export default function BookPage() {
             </div>
 
             <div style={styles.nav}>
-              <button onClick={prevChunk} disabled={currentIndex === 0}>
+              <button
+                style={styles.button}
+                onClick={prevChunk}
+                disabled={currentIndex === 0}
+              >
                 back
               </button>
 
@@ -70,6 +74,7 @@ export default function BookPage() {
               </span>
 
               <button
+                style={styles.button}
                 onClick={nextChunk}
                 disabled={currentIndex === chunks.length - 1}
               >
@@ -98,8 +103,9 @@ const styles = {
   readerBox: {
     border: "1px solid #ccc",
     padding: "1rem 3rem",
-    background: "#fafafa",
+    background: "#f7e1b280",
     minHeight: "300px",
+    borderRadius: "10px",
   },
   text: {
     fontFamily: "monospace",
@@ -113,5 +119,11 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#ee1fa980",
+    border: "none",
+    borderRadius: "5px",
+    padding: "0.1rem 0.5rem",
   },
 };
