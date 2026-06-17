@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BookList from "../components/BookList";
+import Chat from "../components/Chat";
 
 export default function BookPage() {
   const [selectedBook, setSelectedBook] = useState(null);
@@ -78,6 +79,9 @@ export default function BookPage() {
           </>
         )}
       </div>
+      {selectedBook && (
+        <Chat bookId={selectedBook.id} chunkIndex={currentIndex} />
+      )}
     </div>
   );
 }
