@@ -6,7 +6,7 @@ export default function Header() {
 
   return (
     <header style={styles.header}>
-      <h1 style={styles.logo}>BookChat oder CoReader</h1>
+      <h1 style={styles.logo}>GutenRead</h1>
 
       <nav style={styles.nav}>
         {!user && (

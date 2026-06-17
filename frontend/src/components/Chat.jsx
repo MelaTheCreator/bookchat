@@ -1,51 +1,75 @@
 import { useEffect, useState, useRef } from "react";
 
 export default function Chat({ bookId, chunkIndex }) {
-  // Platzhalter – später ersetzt du das durch echte Login-Daten
   const userId = "user-123";
-  const username = "Max";
+  const username = "Mela";
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+
+  // Chat ein-/ausklappen
   const [isOpen, setIsOpen] = useState(true);
+
+  // Spam-Warnung
+  const [warning, setWarning] = useState("");
+
+  // Rate-Limit: Zeitstempel der letzten Nachrichten
+  const [messageTimes, setMessageTimes] = useState([]);
 
   const wsRef = useRef(null);
 
   useEffect(() => {
+    // Nachrichten löschen beim Channel-Wechsel
     setMessages([]);
-    // Channel eindeutig pro Buch + Abschnitt
+
     const channel = `book-${bookId}-chunk-${chunkIndex}`;
 
-    // WebSocket-Verbindung öffnen
     wsRef.current = new WebSocket(`ws://localhost:3000/?channel=${channel}`);
-
-    wsRef.current.onopen = () => {
-      console.log("WebSocket verbunden:", channel);
-    };
 
     wsRef.current.onmessage = (event) => {
       const msg = JSON.parse(event.data);
       setMessages((prev) => [...prev, msg]);
     };
 
-    wsRef.current.onclose = () => {
-      console.log("WebSocket geschlossen");
+    wsRef.current.onerror = (error) => {
+      console.error("WebSocket error:", error);
     };
 
-    // Verbindung schließen, wenn Abschnitt oder Buch wechselt
     return () => {
-      wsRef.current.close();
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+        wsRef.current.close();
+      }
     };
   }, [bookId, chunkIndex]);
 
   const sendMessage = () => {
+    const now = Date.now();
+
+    // Rate-Limit: 5 Nachrichten in 10 Sekunden
+    const windowMs = 10_000;
+    const maxMessages = 5;
+
+    const recent = messageTimes.filter((t) => now - t < windowMs);
+
+    if (recent.length >= maxMessages) {
+      setWarning("slow down.");
+
+      // Warnung nach 3 Sekunden ausblenden
+      setTimeout(() => setWarning(""), 3000);
+
+      return;
+    }
+
+    // Zeitstempel hinzufügen
+    setMessageTimes([...recent, now]);
+
     if (!input.trim()) return;
 
     const msg = {
       userId,
       username,
       text: input,
-      timestamp: Date.now(),
+      timestamp: now,
     };
 
     wsRef.current.send(JSON.stringify(msg));
@@ -56,13 +80,19 @@ export default function Chat({ bookId, chunkIndex }) {
     <div style={styles.wrapper}>
       {/* Toggle Button */}
       <button style={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "close Chat" : "open Chat"}
+        {isOpen ? "Chat einklappen" : "Chat ausklappen"}
       </button>
 
-      {/* Wenn offen → Chat anzeigen */}
+      {/* Wenn geschlossen */}
+      {!isOpen && <div style={styles.closedInfo}>Chat ist eingeklappt</div>}
+
+      {/* Wenn offen */}
       {isOpen && (
         <div style={styles.chatBox}>
-          <h3>Chat</h3>
+          <h3 style={styles.title}>Chat</h3>
+
+          {/* Warnung */}
+          {warning && <div style={styles.warning}>{warning}</div>}
 
           <div style={styles.messages}>
             {messages.map((m, i) => (
@@ -79,7 +109,7 @@ export default function Chat({ bookId, chunkIndex }) {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Nachricht eingeben..."
             />
-            <button onClick={sendMessage}>Senden</button>
+            <button onClick={sendMessage}>send</button>
           </div>
         </div>
       )}
@@ -89,8 +119,7 @@ export default function Chat({ bookId, chunkIndex }) {
 
 const styles = {
   wrapper: {
-    width: "300px",
-    borderLeft: "1px solid #ccc",
+    maxWidth: "300px",
     padding: "1rem",
     display: "flex",
     flexDirection: "column",
@@ -105,9 +134,26 @@ const styles = {
     color: "#666",
   },
   chatBox: {
+    backgroundColor: "#e9e9ed",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    padding: "1rem",
     display: "flex",
     flexDirection: "column",
-    height: "100%",
+    height: "30%",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: "0.5rem",
+  },
+  warning: {
+    background: "#ffe08a",
+    color: "#7a4e00",
+    padding: "0.5rem",
+    borderRadius: "4px",
+    marginBottom: "0.5rem",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   messages: {
     flex: 1,
@@ -115,6 +161,7 @@ const styles = {
     marginBottom: "1rem",
     background: "#f7f7f7",
     padding: "0.5rem",
+    border: "1px solid #ccc",
     borderRadius: "4px",
   },
   message: {

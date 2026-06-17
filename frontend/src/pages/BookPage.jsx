@@ -50,30 +50,30 @@ export default function BookPage() {
       <BookList onSelect={loadBookText} />
 
       <div style={styles.content}>
-        {!selectedBook && <p>Bitte ein Buch auswählen.</p>}
+        {!selectedBook && <p>Please select a book.</p>}
 
         {selectedBook && (
           <>
             <h2>{selectedBook.title}</h2>
 
             <div style={styles.readerBox}>
-              <pre style={styles.text}>{chunks[currentIndex]}</pre>
+              <div style={styles.text}>{chunks[currentIndex]}</div>
             </div>
 
             <div style={styles.nav}>
               <button onClick={prevChunk} disabled={currentIndex === 0}>
-                Zurück
+                back
               </button>
 
               <span>
-                Abschnitt {currentIndex + 1} / {chunks.length}
+                section {currentIndex + 1} / {chunks.length}
               </span>
 
               <button
                 onClick={nextChunk}
                 disabled={currentIndex === chunks.length - 1}
               >
-                Weiter
+                next
               </button>
             </div>
           </>
@@ -97,15 +97,16 @@ const styles = {
   },
   readerBox: {
     border: "1px solid #ccc",
-    padding: "1rem",
+    padding: "1rem 3rem",
     background: "#fafafa",
     minHeight: "300px",
-    whiteSpace: "pre-wrap",
   },
   text: {
     fontFamily: "monospace",
     lineHeight: "20px",
     whiteSpace: "pre-wrap",
+    display: "block",
+    textAlign: "center",
   },
   nav: {
     marginTop: "1rem",

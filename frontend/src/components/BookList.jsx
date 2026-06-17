@@ -23,10 +23,10 @@ export default function BookList({ onSelect }) {
 
   return (
     <div style={styles.sidebar}>
-      <h3>Bücher</h3>
+      <h3>Books</h3>
       <input
         type="text"
-        placeholder="Buch suchen..."
+        placeholder="search..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         style={styles.searchInput}
@@ -50,7 +50,7 @@ const styles = {
     width: "250px",
     padding: "1rem",
     background: "#f4f4f4",
-    borderRight: "1px solid #ccc",
+    borderRadius: "10px",
     height: "100%",
   },
   searchInput: {

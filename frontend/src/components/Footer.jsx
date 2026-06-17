@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer style={styles.footer}>
-      <p>© {new Date().getFullYear()} Gutenberg Reader</p>
+      <p>© {new Date().getFullYear()} GutenRead</p>
       <Link to="/impressum" style={styles.link}>
-        Impressum
+        Imprint
       </Link>
     </footer>
   );
