@@ -5,7 +5,7 @@ import ImpressumPage from "./pages/ImpressumPage";
 import LoginPage from "./pages/LoginPage";
 import BookPage from "./pages/BookPage";
 // import RegisterPage from "./pages/RegisterPage";
-// import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
@@ -13,7 +13,7 @@ export default function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
-            {/* <Route path="/" element={<Dashboard />} /> */}
+            <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<LoginPage />} />
             {/* <Route path="/register" element={<RegisterPage />} /> */}
             <Route path="/books" element={<BookPage />} />
