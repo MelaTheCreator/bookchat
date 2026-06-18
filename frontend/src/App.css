@@ -157,6 +157,14 @@ body,
   border-radius: 10px;
   border: none;
 }
+.chat-toggle-btn-ai {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  background: #fbf0d8;
+  border-radius: 10px;
+  border: none;
+}
 
 .chat-closed-info {
   font-style: italic;
@@ -165,6 +173,18 @@ body,
 
 .chat-box {
   background: #ee1fa980;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  max-height: 360px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.chat-box-ai {
+  background: #fbf0d8;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 1rem;
@@ -241,6 +261,14 @@ body,
   color: #fff;
   cursor: pointer;
 }
+.chat-button-ai {
+  background-color: #fad791;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+}
 
 .chat-button:disabled {
   opacity: 0.5;
@@ -289,6 +317,7 @@ body,
   background: white;
   border: 1px solid #ddd;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .booklist-book-item:hover {
