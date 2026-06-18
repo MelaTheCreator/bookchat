@@ -1,9 +1,10 @@
 import express from "express";
 import fetch from "node-fetch";
+import { checkAuth } from "../middleware/checkAuth";
 
 const router = express.Router();
 
-router.get("/:id/text", async (req, res) => {
+router.get("/:id/text", checkAuth, async (req, res) => {
   const { id } = req.params;
 
   try {
