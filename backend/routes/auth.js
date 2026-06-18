@@ -9,6 +9,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
 
+// Testroute für middleware checkAuth
 router.get("/test", checkAuth, async (req, res) => {
   const user = await User.findByPk(req.user.userId);
 

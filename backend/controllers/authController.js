@@ -61,7 +61,7 @@ export const register = async (req, res) => {
   }
 };
 
-// Login
+// Login // klappt auch
 // {
 //   "email": "malte@test.de",
 //   "password": "12345"
@@ -104,6 +104,8 @@ export const login = async (req, res) => {
     return res.status(500).json({ msg: "Server-Fehler!" });
   }
 };
+
+// Logout // geht auch
 
 export const logout = (req, res) => {
   res.clearCookie("token");
