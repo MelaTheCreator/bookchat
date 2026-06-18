@@ -18,7 +18,7 @@ export function checkAuth(req, res, next) {
     // wenn ja, ist der Token gültig?
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    req.user = decoded; // damit erweitere ich das req-objekt um den user
+    req.user = decoded; // req-objekt um den user erweitert
 
     next();
   } catch (e) {
