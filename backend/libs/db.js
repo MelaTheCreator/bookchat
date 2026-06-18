@@ -7,4 +7,6 @@ if (!DB_CONNECTION) {
   process.exit(1);
 }
 
-export const db = new Sequelize(DB_CONNECTION);
+const db = new Sequelize(DB_CONNECTION);
+
+export default db;
