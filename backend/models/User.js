@@ -10,13 +10,21 @@ User.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    name: { type: DataTypes.STRING, allowNull: false },
     username: { type: DataTypes.STRING, allowNull: false, unique: true },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: true, // don't allow empty strings
+        isEmail: true, // checks for email format (foo@bar.com)
+        len: [5, 100], // only allow values with length between 5 and 100
+      },
+    },
     password: { type: DataTypes.STRING, allowNull: false },
     isOnline: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
-  { sequelize: db, modelName: "user", timestamps: false },
+  { sequelize: db, modelName: "user", timestamps: true },
 );
 
 export default User;
