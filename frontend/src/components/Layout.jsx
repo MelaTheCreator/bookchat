@@ -3,9 +3,9 @@ import Footer from "./Footer";
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className="layout">
       <Header />
-      <main style={{ padding: "2rem" }}>{children}</main>
+      <main className="layout-main">{children}</main>
       <Footer />
     </div>
   );

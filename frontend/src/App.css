@@ -11,6 +11,36 @@
     sans-serif;
   line-height: 1.6;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body,
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 2rem;
+}
+
 .dashboardtitle,
 .page-title {
   font-size: 2rem;
@@ -100,7 +130,6 @@
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
-  color: #fff;
   cursor: pointer;
 }
 
@@ -216,4 +245,118 @@
 .chat-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.booklist-sidebar {
+  width: 250px;
+  padding: 1rem;
+  background: #ee1fa980;
+  border-radius: 10px;
+  height: 100%;
+  animation: wobble 0.6s ease-in-out;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-0.5deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(0.5deg);
+  }
+  75% {
+    transform: translateX(-3px) rotate(-0.3deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.booklist-search-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.booklist-book-item {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.booklist-book-item:hover {
+  background: #f0f0f0;
+}
+
+/* Header Styles */
+.header {
+  padding: 1rem;
+  background: #2c09f1;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  margin: 0;
+}
+
+.header-nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+
+.header-button {
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.header-button:hover {
+  background: darkred;
+}
+
+.header-user {
+  margin-right: 1rem;
+}
+
+/* Footer Styles */
+.footer {
+  margin-top: 4rem;
+  padding: 1rem;
+  background: #2c09f1;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
 }
