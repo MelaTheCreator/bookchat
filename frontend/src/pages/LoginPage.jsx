@@ -14,9 +14,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <button onClick={handleLogin}>Test Login</button>
+    <div className="page-wrapper">
+      <h2 className="page-title">Login</h2>
+      <button className="page-button" onClick={handleLogin}>
+        Test Login
+      </button>
     </div>
   );
 }

@@ -1,0 +1,114 @@
+.dashboardwrapper,
+.page-wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.6;
+}
+.dashboardtitle,
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ee1fa980;
+}
+.dashboardtext,
+.page-text {
+  margin-bottom: 0.75rem;
+}
+
+.page-subtitle {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-link {
+  color: #1f6feb;
+  text-decoration: none;
+}
+
+.page-link:hover,
+.page-link:focus {
+  text-decoration: underline;
+}
+
+.page-button {
+  background-color: #ee1fa980;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.page-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bookpage-container {
+  display: flex;
+  min-height: 100%;
+}
+
+.bookpage-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.bookpage-empty {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.bookpage-title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #ee1fa980;
+}
+
+.bookpage-readerbox {
+  border: 1px solid #ccc;
+  padding: 1rem 3rem;
+  background: #f7e1b280;
+  min-height: 300px;
+  border-radius: 10px;
+}
+
+.bookpage-text {
+  font-family: monospace;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  text-align: center;
+}
+
+.bookpage-nav {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookpage-button {
+  background-color: #ee1fa980;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.bookpage-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bookpage-progress {
+  font-weight: 600;
+}
