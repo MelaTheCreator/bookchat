@@ -58,6 +58,46 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = (req, res) => {};
+// Login
+// {
+//   "email": "malte@beispiel.de",
+//   "password": "12345"
+// }
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-export const logout = (req, res) => {};
+    const user = await User.findOne({ where: { email } });
+
+    console.log(user);
+
+    const passwordMatches = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        msg: "Ungültige Anmeldedaten!",
+      });
+    }
+
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+
+    return res.json({
+      msg: "Eingelogged :).",
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ msg: "Server-Fehler!" });
+  }
+};
+
+export const logout = (req, res) => {
+  res.clearCookie("token");
+
+  return res.json({ msg: "Und ausgelogged!" });
+};
