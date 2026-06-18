@@ -48,14 +48,14 @@ export default function AIChat({ bookId, chunkIndex, chunkText }) {
 
   return (
     <div className="chat-wrapper">
-      <button className="chat-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
+      <button className="chat-toggle-btn-ai" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "close AI Chat" : "open AI Chat"}
       </button>
 
       {!isOpen && <div className="chat-closed-info"></div>}
 
       {isOpen && (
-        <div className="chat-box">
+        <div className="chat-box-ai">
           <h3 className="chat-title">AI Chat</h3>
 
           <div className="chat-messages">
@@ -84,10 +84,10 @@ export default function AIChat({ bookId, chunkIndex, chunkText }) {
               className="chat-input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              rows={3}
+              rows={1}
               placeholder="ask me…"
             />
-            <button className="chat-button" type="submit" disabled={loading}>
+            <button className="chat-button-ai" type="submit" disabled={loading}>
               {loading ? "loading…" : "send"}
             </button>
           </form>

@@ -104,9 +104,10 @@ export default function Chat({ bookId, chunkIndex }) {
           </div>
 
           <div className="chat-input-row">
-            <input
+            <textarea
               className="chat-input"
               value={input}
+              rows={1}
               onChange={(e) => setInput(e.target.value)}
               placeholder="write a message..."
             />
