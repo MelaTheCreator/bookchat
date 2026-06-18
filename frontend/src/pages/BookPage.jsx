@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BookList from "../components/BookList";
 import Chat from "../components/Chat";
+import AIChat from "../components/AiChat";
 
 export default function BookPage() {
   const [selectedBook, setSelectedBook] = useState(null);
@@ -44,6 +45,7 @@ export default function BookPage() {
       setCurrentIndex(currentIndex - 1);
     }
   };
+  const currentChunkText = chunks.length > 0 ? chunks[currentIndex] : "no text";
 
   return (
     <div className="bookpage-container">
@@ -86,9 +88,18 @@ export default function BookPage() {
           </>
         )}
       </div>
-      {selectedBook && (
-        <Chat bookId={selectedBook.id} chunkIndex={currentIndex} />
-      )}
+      <div>
+        {selectedBook && (
+          <Chat bookId={selectedBook.id} chunkIndex={currentIndex} />
+        )}
+        {selectedBook && (
+          <AIChat
+            bookId={selectedBook.id}
+            chunkIndex={currentIndex}
+            chunkText={currentChunkText}
+          />
+        )}
+      </div>
     </div>
   );
 }
