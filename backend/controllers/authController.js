@@ -8,10 +8,10 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET fehlt!");
 }
 
-// Registrierung
+// Registrierung // funktioniert
 // {
 //   "username": "Malle26",
-//   "email": "malte@beispiel.de",
+//   "email": "malte@test.de",
 //   "password": "12345"
 // }
 export const register = async (req, res) => {
@@ -46,8 +46,11 @@ export const register = async (req, res) => {
       expiresIn: "1d",
     });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+
     return res.status(201).json({
-      token,
       id: user.id,
       username: user.username,
       email: user.email,
@@ -60,16 +63,22 @@ export const register = async (req, res) => {
 
 // Login
 // {
-//   "email": "malte@beispiel.de",
+//   "email": "malte@test.de",
 //   "password": "12345"
 // }
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email: email.toLowerCase() } });
 
-    console.log(user);
+    if (!user) {
+      return res.status(401).json({
+        msg: "Ungültige Anmeldedaten!",
+      });
+    }
+
+    // console.log(user);
 
     const passwordMatches = await bcrypt.compare(password, user.password);
 
@@ -79,7 +88,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: "1d",
     });
 
@@ -99,5 +108,5 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("token");
 
-  return res.json({ msg: "Und ausgelogged!" });
+  return res.status(200).json({ msg: "Und ausgelogged!" });
 };
