@@ -77,107 +77,45 @@ export default function Chat({ bookId, chunkIndex }) {
   };
 
   return (
-    <div style={styles.wrapper}>
+    <div className="chat-wrapper">
       {/* Toggle Button */}
-      <button style={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
+      <button className="chat-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "close Chat" : "open Chat"}
       </button>
 
       {/* Wenn geschlossen */}
-      {!isOpen && <div style={styles.closedInfo}></div>}
+      {!isOpen && <div className="chat-closed-info"></div>}
 
       {/* Wenn offen */}
       {isOpen && (
-        <div style={styles.chatBox}>
-          <h3 style={styles.title}>Chat</h3>
+        <div className="chat-box">
+          <h3 className="chat-title">Chat</h3>
 
           {/* Warnung */}
-          {warning && <div style={styles.warning}>{warning}</div>}
+          {warning && <div className="chat-warning">{warning}</div>}
 
-          <div style={styles.messages}>
+          <div className="chat-messages">
             {messages.map((m, i) => (
-              <div key={i} style={styles.message}>
-                <strong style={styles.username}>{m.username}:</strong> {m.text}
+              <div key={i} className="chat-message">
+                <strong className="chat-username">{m.username}:</strong>{" "}
+                {m.text}
               </div>
             ))}
           </div>
 
-          <div style={styles.inputRow}>
+          <div className="chat-input-row">
             <input
-              style={styles.input}
+              className="chat-input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="write a message..."
             />
-            <button onClick={sendMessage}>send</button>
+            <button className="chat-button" onClick={sendMessage}>
+              send
+            </button>
           </div>
         </div>
       )}
     </div>
   );
 }
-
-const styles = {
-  wrapper: {
-    maxWidth: "300px",
-    padding: "1rem",
-    display: "flex",
-    flexDirection: "column",
-  },
-  toggleBtn: {
-    marginBottom: "0.5rem",
-    padding: "1rem",
-    cursor: "pointer",
-    background: "#ee1fa980",
-    borderRadius: "10px",
-    border: "none",
-  },
-  closedInfo: {
-    fontStyle: "italic",
-    color: "#666",
-  },
-  chatBox: {
-    background: "#ee1fa980",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    padding: "1rem",
-    display: "flex",
-    flexDirection: "column",
-    height: "30%",
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: "0.5rem",
-  },
-  warning: {
-    background: "#ee1fa980",
-    color: "#2c09f1",
-    padding: "0.5rem",
-    borderRadius: "4px",
-    marginBottom: "0.5rem",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  messages: {
-    flex: 1,
-    overflowY: "auto",
-    marginBottom: "1rem",
-    background: "#f7f7f7",
-    padding: "0.5rem",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-  },
-  message: {
-    marginBottom: "0.5rem",
-  },
-  username: {
-    color: "#2c09f1",
-  },
-  inputRow: {
-    display: "flex",
-    gap: "0.5rem",
-  },
-  input: {
-    flex: 1,
-  },
-};
