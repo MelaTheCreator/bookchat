@@ -46,35 +46,37 @@ export default function BookPage() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="bookpage-container">
       <BookList onSelect={loadBookText} />
 
-      <div style={styles.content}>
-        {!selectedBook && <p>Please select a book.</p>}
+      <div className="bookpage-content">
+        {!selectedBook && (
+          <p className="bookpage-empty">Please select a book.</p>
+        )}
 
         {selectedBook && (
           <>
-            <h2>{selectedBook.title}</h2>
+            <h2 className="bookpage-title">{selectedBook.title}</h2>
 
-            <div style={styles.readerBox}>
-              <div style={styles.text}>{chunks[currentIndex]}</div>
+            <div className="bookpage-readerbox">
+              <div className="bookpage-text">{chunks[currentIndex]}</div>
             </div>
 
-            <div style={styles.nav}>
+            <div className="bookpage-nav">
               <button
-                style={styles.button}
+                className="bookpage-button"
                 onClick={prevChunk}
                 disabled={currentIndex === 0}
               >
                 back
               </button>
 
-              <span>
+              <span className="bookpage-progress">
                 section {currentIndex + 1} / {chunks.length}
               </span>
 
               <button
-                style={styles.button}
+                className="bookpage-button"
                 onClick={nextChunk}
                 disabled={currentIndex === chunks.length - 1}
               >
@@ -90,40 +92,3 @@ export default function BookPage() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: "flex",
-    height: "100%",
-  },
-  content: {
-    flex: 1,
-    padding: "2rem",
-  },
-  readerBox: {
-    border: "1px solid #ccc",
-    padding: "1rem 3rem",
-    background: "#f7e1b280",
-    minHeight: "300px",
-    borderRadius: "10px",
-  },
-  text: {
-    fontFamily: "monospace",
-    lineHeight: "20px",
-    whiteSpace: "pre-wrap",
-    display: "block",
-    textAlign: "center",
-  },
-  nav: {
-    marginTop: "1rem",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#ee1fa980",
-    border: "none",
-    borderRadius: "5px",
-    padding: "0.1rem 0.5rem",
-  },
-};
