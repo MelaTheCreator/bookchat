@@ -11,6 +11,8 @@ ReadingProgress.init(
       primaryKey: true,
     },
     currentChapter: { type: DataTypes.INTEGER, defaultValue: 0 },
+    userId: { type: DataTypes.UUID, allowNull: false },
+    bookId: { type: DataTypes.UUID, allowNull: false },
   },
   { sequelize: db, modelName: "readingProgress" },
 );

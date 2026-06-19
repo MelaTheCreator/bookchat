@@ -28,7 +28,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/books", booksRouter);
 app.use("/api", aiRouter);
 
-await db.sync({ alter: true }); // oder force?
+await db.sync({ force: true }); // Database wird komplett neu erstellt
 
 const server = app.listen(PORT, () => {
   console.log(`Backend läuft auf http://localhost:${PORT}`);

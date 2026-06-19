@@ -1,8 +1,13 @@
 import { useEffect, useState, useRef } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Chat({ bookId, chunkIndex }) {
-  const userId = "user-123";
-  const username = "Mela";
+  const { user } = useAuth();
+  const userId = user?.id;
+  const username = user?.username;
+
+  console.log("Chat - user:", user);
+  console.log("Chat - username:", username);
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -48,7 +53,6 @@ export default function Chat({ bookId, chunkIndex }) {
     // Rate-Limit: 5 Nachrichten in 10 Sekunden
     const windowMs = 10_000;
     const maxMessages = 5;
-
     const recent = messageTimes.filter((t) => now - t < windowMs);
 
     if (recent.length >= maxMessages) {

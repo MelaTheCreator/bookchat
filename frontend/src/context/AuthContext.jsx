@@ -6,7 +6,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // null = nicht eingeloggt
 
   const login = (userData) => setUser(userData);
-  const logout = () => setUser(null);
+
+  const logout = async () => {
+    await fetch("http://localhost:3000/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

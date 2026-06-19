@@ -23,6 +23,9 @@ export default function BookPage() {
 
     const response = await fetch(
       `http://localhost:3000/api/books/${book.id}/text`,
+      {
+        credentials: "include",
+      },
     );
 
     if (!response.ok) {
