@@ -115,3 +115,29 @@ export const logout = (req, res) => {
 
   return res.status(200).json({ msg: "Und ausgelogged!" });
 };
+
+// Eingeloggt bleiben // geht
+
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.userId);
+
+    if (!user) {
+      return res.status(401).json({
+        msg: "Kein:e autorisierte User:in!",
+      });
+    }
+
+    return res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    }); // niemals komplette user-daten zurückschicken (vorher: res.json(user)), weil sonst auch passwort-hash im fe landet.
+  } catch (e) {
+    console.error(e);
+
+    return res.status(500).json({
+      msg: "Server-Fehler",
+    });
+  }
+};
