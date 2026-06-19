@@ -7,9 +7,9 @@ import "./models/associations.js";
 
 import { initWebSocketServer } from "./websocket/wsServer.js";
 
-import authRouter from "./routes/auth.js";
-import booksRouter from "./routes/books.js";
-import aiRouter from "./routes/ai.js";
+import authRouter from "./routes/authRoutes.js";
+import booksRouter from "./routes/booksRoutes.js";
+import aiRouter from "./routes/aiRoutes.js";
 
 const PORT = process.env.PORT || 3000;
 
