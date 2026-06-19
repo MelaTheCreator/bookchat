@@ -22,7 +22,7 @@ export default function Header() {
 
         {user && (
           <>
-            <span className="header-user">Hallo {user.username}!</span>
+            <span className="header-user">Hello {user.username}!</span>
             <button onClick={logout} className="header-button">
               Logout
             </button>

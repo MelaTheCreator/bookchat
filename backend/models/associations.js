@@ -7,3 +7,5 @@ import ReadingProgress from "./ReadingProgress";
 // jetzt mit zusätzlichem Feld currentChapter (festgelegt im Model ReadingProgress)
 User.belongsToMany(Book, { through: ReadingProgress });
 Book.belongsToMany(User, { through: ReadingProgress });
+
+// ReadingProgress ist Association mit eigenen Daten

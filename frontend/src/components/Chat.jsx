@@ -113,7 +113,7 @@ export default function Chat({ bookId, chunkIndex }) {
               value={input}
               rows={1}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="write a message..."
+              placeholder="write a message ..."
             />
             <button className="chat-button" onClick={sendMessage}>
               send

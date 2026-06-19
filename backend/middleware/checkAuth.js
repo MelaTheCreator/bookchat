@@ -19,6 +19,7 @@ export function checkAuth(req, res, next) {
     const decoded = jwt.verify(token, JWT_SECRET);
 
     req.user = decoded; // req-objekt um den user erweitert
+    console.log(req.user);
 
     next();
   } catch (e) {
