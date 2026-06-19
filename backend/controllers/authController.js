@@ -51,9 +51,12 @@ export const register = async (req, res) => {
     });
 
     return res.status(201).json({
-      id: user.id,
-      username: user.username,
-      email: user.email,
+      msg: "Erfolgreich registriert!",
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
     });
   } catch (e) {
     console.error(e);

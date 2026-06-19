@@ -1,10 +1,10 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // null = nicht eingeloggt
-  const [loading, setLoading] = useState(true); // checkt, ob user:in eingeloggt ist // ohne loading kommt falscher zustand
+  const [loading, setLoading] = useState(true); // checkt, ob user:in eingeloggt ist // ohne loading kommt ggfs. falscher zustand
 
   // checkt mein ersten Laden, ob User:in eingeloggt ist im Cookie nach Token
   useEffect(() => {
