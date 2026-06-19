@@ -78,8 +78,6 @@ export const login = async (req, res) => {
       });
     }
 
-    // console.log(user);
-
     const passwordMatches = await bcrypt.compare(password, user.password);
 
     if (!passwordMatches) {
