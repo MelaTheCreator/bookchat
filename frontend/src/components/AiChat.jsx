@@ -18,6 +18,7 @@ export default function AIChat({ bookId, chunkIndex, chunkText }) {
       const res = await fetch("http://localhost:3000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           message: input,
           bookId,

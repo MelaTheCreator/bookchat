@@ -1,41 +1,45 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-
+export default function RegisterPage() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
 
-    const response = await fetch("http://localhost:3000/api/auth/login", {
+    const response = await fetch("http://localhost:3000/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, email, password }),
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      setError(data.msg || "Login fehlgeschlagen");
+      setError(data.msg || "Registrierung fehlgeschlagen");
       return;
     }
 
-    login(data.user);
-    navigate("/books");
+    navigate("/login");
   };
 
   return (
     <div className="page-wrapper">
-      <h2 className="page-title">Login</h2>
+      <h2 className="page-title">Register</h2>
       <form onSubmit={handleSubmit} className="auth-form">
+        <input
+          type="text"
+          placeholder="Benutzername"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
         <input
           type="email"
           placeholder="E-Mail"
@@ -51,7 +55,7 @@ export default function LoginPage() {
           required
         />
         <button className="page-button" type="submit">
-          Login
+          Registrieren
         </button>
         {error && <p className="form-error">{error}</p>}
       </form>

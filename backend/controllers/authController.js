@@ -95,7 +95,12 @@ export const login = async (req, res) => {
     });
 
     return res.json({
-      msg: "Eingelogged :).",
+      msg: "Eingelogged :)",
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
     });
   } catch (e) {
     console.error(e);
