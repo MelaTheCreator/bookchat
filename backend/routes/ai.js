@@ -1,9 +1,10 @@
 import express from "express";
 import fetch from "node-fetch";
+import { checkAuth } from "../middleware/checkAuth";
 
 const router = express.Router();
 
-router.post("/chat", async (req, res) => {
+router.post("/chat", checkAuth, async (req, res) => {
   try {
     const { message, bookId, chunkIndex } = req.body;
 

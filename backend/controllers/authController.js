@@ -8,10 +8,10 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET fehlt!");
 }
 
-// Registrierung
+// Registrierung // funktioniert
 // {
 //   "username": "Malle26",
-//   "email": "malte@beispiel.de",
+//   "email": "malte@test.de",
 //   "password": "12345"
 // }
 export const register = async (req, res) => {
@@ -46,8 +46,11 @@ export const register = async (req, res) => {
       expiresIn: "1d",
     });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+
     return res.status(201).json({
-      token,
       id: user.id,
       username: user.username,
       email: user.email,
@@ -58,6 +61,52 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = (req, res) => {};
+// Login // klappt auch
+// {
+//   "email": "malte@test.de",
+//   "password": "12345"
+// }
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-export const logout = (req, res) => {};
+    const user = await User.findOne({ where: { email: email.toLowerCase() } });
+
+    if (!user) {
+      return res.status(401).json({
+        msg: "Ungültige Anmeldedaten!",
+      });
+    }
+
+    const passwordMatches = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        msg: "Ungültige Anmeldedaten!",
+      });
+    }
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+
+    return res.json({
+      msg: "Eingelogged :).",
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ msg: "Server-Fehler!" });
+  }
+};
+
+// Logout // geht auch
+
+export const logout = (req, res) => {
+  res.clearCookie("token");
+
+  return res.status(200).json({ msg: "Und ausgelogged!" });
+};
