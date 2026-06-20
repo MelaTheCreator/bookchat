@@ -354,7 +354,7 @@ body,
 }
 
 .header-button {
-  background: crimson;
+  background: #ee1fa990;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -363,7 +363,7 @@ body,
 }
 
 .header-button:hover {
-  background: darkred;
+  background: #ee1fa9;
 }
 
 .header-user {
