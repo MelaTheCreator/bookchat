@@ -8,7 +8,7 @@
 import ReadingProgress from "../models/ReadingProgress";
 import Book from "../models/Book";
 
-// Fortschritt eines Books laden
+// Fortschritt eines Books laden // klappt (vorher einloggen :)
 export const getProgress = async (req, res) => {
   try {
     // user aus dem verzifizierten JWT aus Middleware holen
@@ -46,7 +46,7 @@ export const getProgress = async (req, res) => {
   }
 };
 
-// Fortschritt speichern bzw. aktualisiern
+// Fortschritt speichern bzw. aktualisiern // geht auch!
 export const saveProgress = async (req, res) => {
   try {
     // userId wieder aus middleware / jwt holen // also uuid
