@@ -50,7 +50,7 @@ export const getProgress = async (req, res) => {
 export const saveProgress = async (req, res) => {
   try {
     // userId wieder aus middleware / jwt holen // also uuid
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     // Buch-ID und aktueller Lesestand aus dem Request lesen
     const { bookId, currentChunk } = req.body; // FE muss sie im body mitsenden aufgrund der Route
