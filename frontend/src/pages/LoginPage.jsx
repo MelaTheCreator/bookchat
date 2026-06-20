@@ -22,6 +22,7 @@ export default function LoginPage() {
     });
 
     const data = await response.json();
+    console.log(data);
 
     if (!response.ok) {
       setError(data.msg || "Login fehlgeschlagen");
@@ -29,6 +30,7 @@ export default function LoginPage() {
     }
 
     login(data.user);
+    console.log(data.user);
     navigate("/books");
   };
 

@@ -10,7 +10,7 @@ ReadingProgress.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    currentChapter: { type: DataTypes.INTEGER, defaultValue: 0 },
+    currentChunk: { type: DataTypes.INTEGER, defaultValue: 0 },
     userId: { type: DataTypes.UUID, allowNull: false },
     bookId: { type: DataTypes.UUID, allowNull: false },
   },

@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,18 +18,22 @@ export default function RegisterPage() {
     const response = await fetch("http://localhost:3000/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      credentials: "include", // erlaubt cookies
       body: JSON.stringify({ username, email, password }),
     });
 
     const data = await response.json();
+
+    console.log(data);
 
     if (!response.ok) {
       setError(data.msg || "Registrierung fehlgeschlagen");
       return;
     }
 
-    navigate("/login");
+    login(data.user);
+    console.log(data.user);
+    navigate("/books");
   };
 
   return (

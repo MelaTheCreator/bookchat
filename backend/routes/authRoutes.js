@@ -1,19 +1,19 @@
 import express from "express";
-import { register, login, logout } from "../controllers/authController.js";
-import User from "../models/User.js";
+import {
+  register,
+  login,
+  logout,
+  getProfile,
+} from "../controllers/authController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.post("/logout", logout);
+router.post("/logout", logout); // hier keine middleware checkAuth, damit logout unter allen umständen funktioniert
 
-// Testroute für middleware checkAuth
-router.get("/test", checkAuth, async (req, res) => {
-  const user = await User.findByPk(req.user.userId);
-
-  res.json(user);
-});
+// route für aktuelle:n user:in, um eingelogged zu bleiben
+router.get("/profile", checkAuth, getProfile);
 
 export default router;

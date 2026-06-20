@@ -4,6 +4,6 @@ import { books } from "../controllers/booksController";
 
 const router = express.Router();
 
-router.get("/:id/text", checkAuth, books);
+router.get("/:gutenbergId/text", checkAuth, books);
 
 export default router;

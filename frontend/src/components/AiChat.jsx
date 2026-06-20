@@ -86,7 +86,7 @@ export default function AIChat({ bookId, chunkIndex, chunkText }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={1}
-              placeholder="ask me…"
+              placeholder="ask me ..."
             />
             <button className="chat-button-ai" type="submit" disabled={loading}>
               {loading ? "loading…" : "send"}
