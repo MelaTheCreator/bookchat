@@ -1,15 +1,12 @@
-/*
-Authentifizierungs-Controller
+// Authentifizierungs-Controller
 
+// Dieser Controller verwaltet:
+// 1. Registrierung neuer User:innen
+// 2. Anmeldung bestehender User:innen (Login)
+// 3. Abmeldung (Logout)
+// 4. Abrufen des Profils eines eingeloggten Users
 
-Dieser Controller verwaltet:
-1. Registrierung neuer User:innen
-2. Anmeldung bestehender User:innen (Login)
-3. Abmeldung (Logout)
-4. Abrufen des Profils eines eingeloggten Users
-
-Zur Authentifizierung werden JSON Web Tokens (JWT) verwendet, die nach erfolgreicher Registrierung oder Anmeldung als httpOnly-Cookie gespeichert werden.
-*/
+// Zur Authentifizierung werden JSON Web Tokens (JWT) verwendet, die nach erfolgreicher Registrierung oder Anmeldung als httpOnly-Cookie gespeichert werden.
 
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";

@@ -1,8 +1,6 @@
-/* 
-Authentifizierungs-Middleware für geschützte Routen
+// Authentifizierungs-Middleware für geschützte Routen
 
- Verwendet JSON Web Tokens (JWT), die in Cookies gespeichert sind. Nach erfolgreicher Verifizierung werden die Benutzer:innendaten im Request-Objekt unter `req.user` abgelegt.
-*/
+// Verwendet JSON Web Tokens (JWT), die in Cookies gespeichert sind. Nach erfolgreicher Verifizierung werden die Benutzer:innendaten im Request-Objekt unter req.user abgelegt.
 
 import jwt from "jsonwebtoken";
 

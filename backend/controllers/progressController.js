@@ -1,11 +1,9 @@
-/* ReadingProgress-Controller
+// ReadingProgress-Controller
 
-Dieser Controller verwaltet den Lesefortschritt der User:innen. Für jedes Buch wird gespeichert, an welchem Abschnitt (Chunk) zuletzt gelesen wurde. Die User:innen-ID wird dabei aus dem JWT über die Auth Middleware bereit gestellt. Funktionen:
+// Dieser Controller verwaltet den Lesefortschritt der User:innen. Für jedes Buch wird gespeichert, an welchem Abschnitt (Chunk) zuletzt gelesen wurde. Die User:innen-ID wird dabei aus dem JWT über die Auth Middleware bereit gestellt. Funktionen:
 
-1. Lesefortschritt eines Buches abrufen
-2. Lesefortschritt speichern oder aktualisieren
-
-*/
+// 1. Lesefortschritt eines Buches abrufen
+// 2. Lesefortschritt speichern oder aktualisieren
 
 import ReadingProgress from "../models/ReadingProgress";
 import Book from "../models/Book";
@@ -55,7 +53,7 @@ export const saveProgress = async (req, res) => {
     const userId = req.user.id;
 
     // Buch-ID und aktueller Lesestand aus dem Request lesen
-    const { bookId, currentChunk } = req.body; // warum ist das buch im body?
+    const { bookId, currentChunk } = req.body; // FE muss sie im body mitsenden aufgrund der Route
 
     // Prüfen, ob das Buch schon in DB existiert
     const book = await Book.findByPk(bookId);
