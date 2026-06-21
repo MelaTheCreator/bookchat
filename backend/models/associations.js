@@ -8,4 +8,8 @@ import ReadingProgress from "./ReadingProgress";
 User.belongsToMany(Book, { through: ReadingProgress });
 Book.belongsToMany(User, { through: ReadingProgress });
 
-// ReadingProgress ist Association mit eigenen Daten
+// Explizite Beziehungen für das Through-Model
+ReadingProgress.belongsTo(Book, { foreignKey: "bookId" });
+ReadingProgress.belongsTo(User, { foreignKey: "userId" });
+Book.hasMany(ReadingProgress, { foreignKey: "bookId" });
+User.hasMany(ReadingProgress, { foreignKey: "userId" });

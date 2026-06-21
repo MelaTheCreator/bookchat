@@ -42,27 +42,27 @@ export default function RegisterPage() {
       <form onSubmit={handleSubmit} className="auth-form">
         <input
           type="text"
-          placeholder="Benutzername"
+          placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input
           type="email"
-          placeholder="E-Mail"
+          placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Passwort"
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <button className="page-button" type="submit">
-          Registrieren
+          register
         </button>
         {error && <p className="form-error">{error}</p>}
       </form>

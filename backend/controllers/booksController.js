@@ -33,6 +33,9 @@ export const books = async (req, res) => {
     // vollständigen Buchtext laden
     let text = await response.text();
 
+    const title = req.query.title || null;
+    const author = req.query.author || null;
+
     // Buch in DB suchen
     let book = await Book.findOne({
       where: {
@@ -44,7 +47,23 @@ export const books = async (req, res) => {
     if (!book) {
       book = await Book.create({
         gutenbergId,
+        title,
+        author,
       });
+    } else {
+      // Falls wir neue Metadaten erhalten, aktualisieren wir sie
+      let updated = false;
+      if (title && book.title !== title) {
+        book.title = title;
+        updated = true;
+      }
+      if (author && book.author !== author) {
+        book.author = author;
+        updated = true;
+      }
+      if (updated) {
+        await book.save();
+      }
     }
 
     // Kapitelanfang finden, um Vorworte etc. zu enfernen

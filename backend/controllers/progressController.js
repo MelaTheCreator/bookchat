@@ -4,6 +4,7 @@
 
 // 1. Lesefortschritt eines Buches abrufen
 // 2. Lesefortschritt speichern oder aktualisieren
+// 3. Alle Bücher mit aktuellem Fortschritt abrufen
 
 import ReadingProgress from "../models/ReadingProgress";
 import Book from "../models/Book";
@@ -95,6 +96,39 @@ export const saveProgress = async (req, res) => {
 
     res.status(500).json({
       msg: "Es ist ein Fehler beim Speichern des Fortschritts aufgetreten.",
+    });
+  }
+};
+
+// Alle Bücher mit aktuellem Fortschritt für User laden
+export const getInProgressBooks = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    // Alle ReadingProgress-Einträge für diesen User mit den zugehörigen Book-Daten laden
+    const progressList = await ReadingProgress.findAll({
+      where: { userId },
+      include: [
+        { model: Book, attributes: ["id", "gutenbergId", "title", "author"] },
+      ],
+      order: [["updatedAt", "DESC"]], // Neueste zuerst
+    });
+
+    // In das gewünschte Format transformieren
+    const books = progressList.map((progress) => ({
+      id: progress.book.id,
+      gutenbergId: progress.book.gutenbergId,
+      title: progress.book.title,
+      author: progress.book.author,
+      currentChunk: progress.currentChunk,
+    }));
+
+    res.json(books);
+  } catch (e) {
+    console.error(e);
+
+    res.status(500).json({
+      msg: "Es ist ein Fehler beim Laden der Bücher aufgetreten.",
     });
   }
 };

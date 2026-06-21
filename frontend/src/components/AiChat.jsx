@@ -87,6 +87,12 @@ export default function AIChat({ bookId, chunkIndex, chunkText }) {
               onChange={(e) => setInput(e.target.value)}
               rows={1}
               placeholder="ask me ..."
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e);
+                }
+              }}
             />
             <button className="chat-button-ai" type="submit" disabled={loading}>
               {loading ? "loading…" : "send"}

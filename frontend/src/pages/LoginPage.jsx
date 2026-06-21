@@ -40,20 +40,20 @@ export default function LoginPage() {
       <form onSubmit={handleSubmit} className="auth-form">
         <input
           type="email"
-          placeholder="E-Mail"
+          placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Passwort"
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <button className="page-button" type="submit">
-          Login
+          login
         </button>
         {error && <p className="form-error">{error}</p>}
       </form>

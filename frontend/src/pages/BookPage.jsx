@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookList from "../components/BookList";
+import ContinueReading from "../components/ContinueReading";
 import Chat from "../components/Chat";
 import AIChat from "../components/AiChat";
 
@@ -8,21 +9,28 @@ export default function BookPage() {
   const [chunks, setChunks] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const loadBookText = async (book) => {
-    setSelectedBook(book);
-    setCurrentIndex(0);
-
-    // Gutenberg liefert mehrere Formate – wir nehmen das Plaintext-Format
-    const textUrl =
-      book.formats["text/plain; charset=utf-8"] || book.formats["text/plain"];
-
-    if (!textUrl) {
-      setChunks(["Kein Text verfügbar"]);
-      return;
+  const saveProgress = async (bookId, chunkIndex) => {
+    try {
+      await fetch("http://localhost:3000/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ bookId, currentChunk: chunkIndex }),
+      });
+    } catch (err) {
+      console.error("Fehler beim Speichern des Fortschritts:", err);
     }
+  };
 
+  const loadBookText = async (book) => {
+    // Gutenberg-ID bestimmen (von Gutendex oder von Backend)
+    const gutenbergId = book.gutenbergId || book.id;
+
+    const author = book.author || book.authors?.[0]?.name || "";
     const response = await fetch(
-      `http://localhost:3000/api/books/${book.id}/text`,
+      `http://localhost:3000/api/books/${gutenbergId}/text?title=${encodeURIComponent(
+        book.title,
+      )}&author=${encodeURIComponent(author)}`,
       {
         credentials: "include",
       },
@@ -35,28 +43,62 @@ export default function BookPage() {
 
     const data = await response.json();
     setChunks(data.chunks || ["Kein Text verfügbar"]);
+
+    // Backend gibt die korrekte UUID zurück – diese muss für Progress verwendet werden
+    const bookWithUUID = { ...book, id: data.id };
+    setSelectedBook(bookWithUUID);
+
+    // Fortschritt vom Backend laden (mit der korrekten UUID)
+    try {
+      const progressRes = await fetch(
+        `http://localhost:3000/api/progress/${data.id}`,
+        {
+          credentials: "include",
+        },
+      );
+      if (progressRes.ok) {
+        const progressData = await progressRes.json();
+        const savedChunk = progressData.currentChunk || 0;
+        setCurrentIndex(Math.min(savedChunk, (data.chunks || []).length - 1));
+      } else {
+        setCurrentIndex(0);
+      }
+    } catch (err) {
+      console.error("Fehler beim Laden des Fortschritts:", err);
+      setCurrentIndex(0);
+    }
   };
 
   const nextChunk = () => {
     if (currentIndex < chunks.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      const newIndex = currentIndex + 1;
+      setCurrentIndex(newIndex);
+      if (selectedBook) {
+        saveProgress(selectedBook.id, newIndex);
+      }
     }
   };
 
   const prevChunk = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+      const newIndex = currentIndex - 1;
+      setCurrentIndex(newIndex);
+      if (selectedBook) {
+        saveProgress(selectedBook.id, newIndex);
+      }
     }
   };
   const currentChunkText = chunks.length > 0 ? chunks[currentIndex] : "no text";
 
   return (
     <div className="bookpage-container">
-      <BookList onSelect={loadBookText} />
-
+      <div>
+        <BookList onSelect={loadBookText} />
+        <ContinueReading onSelect={loadBookText} />
+      </div>
       <div className="bookpage-content">
         {!selectedBook && (
-          <p className="bookpage-empty">Please select a book.</p>
+          <p className="bookpage-empty"> Please select a book.</p>
         )}
 
         {selectedBook && (

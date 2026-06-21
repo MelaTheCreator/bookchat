@@ -114,6 +114,12 @@ export default function Chat({ bookId, chunkIndex }) {
               rows={1}
               onChange={(e) => setInput(e.target.value)}
               placeholder="write a message ..."
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+              }}
             />
             <button className="chat-button" onClick={sendMessage}>
               send
