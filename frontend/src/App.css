@@ -142,10 +142,10 @@ body,
 }
 
 .chat-wrapper {
-  height: 50%;
   max-width: 350px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 }
 
 .chat-toggle-btn {
@@ -451,4 +451,15 @@ body,
 .continue-reading-progress {
   color: #ee1fa980;
   font-weight: bold;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 15rem;
+  align-items: center;
+  gap: 1rem;
+  background-color: #ee1fa960;
+  padding: 2rem 0;
+  border-radius: 10px;
 }

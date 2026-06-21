@@ -99,6 +99,12 @@ export default function Chat({ bookId, chunkIndex }) {
           {warning && <div className="chat-warning">{warning}</div>}
 
           <div className="chat-messages">
+            {messages.length === 0 && (
+              <p className="chat-empty">
+                Start a chat with other people, who are on the same page as you
+                are.
+              </p>
+            )}
             {messages.map((m, i) => (
               <div key={i} className="chat-message">
                 <strong className="chat-username">{m.username}:</strong>{" "}
