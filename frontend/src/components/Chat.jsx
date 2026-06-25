@@ -30,7 +30,7 @@ export default function Chat({ bookId, chunkIndex }) {
     const channel = `book-${bookId}-chunk-${chunkIndex}`;
 
     wsRef.current = new WebSocket(
-      `ws://gutenread-4cle.onrender.com/?channel=${channel}`,
+      `wss://gutenread-4cle.onrender.com/?channel=${channel}`,
     );
 
     wsRef.current.onmessage = (event) => {
