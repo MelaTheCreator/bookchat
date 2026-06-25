@@ -15,12 +15,15 @@ export default function RegisterPage() {
     event.preventDefault();
     setError("");
 
-    const response = await fetch("http://localhost:3000/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include", // erlaubt cookies
-      body: JSON.stringify({ username, email, password }),
-    });
+    const response = await fetch(
+      "https://gutenread-4cle.onrender.com/api/auth/register",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // erlaubt cookies
+        body: JSON.stringify({ username, email, password }),
+      },
+    );
 
     const data = await response.json();
 

@@ -14,12 +14,15 @@ export default function LoginPage() {
     event.preventDefault();
     setError("");
 
-    const response = await fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      "https://gutenread-4cle.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      },
+    );
 
     const data = await response.json();
     console.log(data);

@@ -10,9 +10,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/auth/profile", {
-          credentials: "include",
-        });
+        const res = await fetch(
+          "https://gutenread-4cle.onrender.com/api/auth/profile",
+          {
+            credentials: "include",
+          },
+        );
 
         if (res.ok) {
           // res.ok ist eingebaute fetch-Eigenschaft
@@ -33,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => setUser(userData);
 
   const logout = async () => {
-    await fetch("http://localhost:3000/api/auth/logout", {
+    await fetch("https://gutenread-4cle.onrender.com/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });

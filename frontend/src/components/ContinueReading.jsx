@@ -11,9 +11,12 @@ export default function ContinueReading({ onSelect }) {
   const loadInProgressBooks = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/progress", {
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://gutenread-4cle.onrender.com/api/progress",
+        {
+          credentials: "include",
+        },
+      );
 
       if (!response.ok) {
         console.error("ContinueReading: API returned", response.status);

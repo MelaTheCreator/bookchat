@@ -11,7 +11,7 @@ export default function BookPage() {
 
   const saveProgress = async (bookId, chunkIndex) => {
     try {
-      await fetch("http://localhost:3000/api/progress", {
+      await fetch("https://gutenread-4cle.onrender.com/api/progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -28,7 +28,7 @@ export default function BookPage() {
 
     const author = book.author || book.authors?.[0]?.name || "";
     const response = await fetch(
-      `http://localhost:3000/api/books/${gutenbergId}/text?title=${encodeURIComponent(
+      `https://gutenread-4cle.onrender.com/api/books/${gutenbergId}/text?title=${encodeURIComponent(
         book.title,
       )}&author=${encodeURIComponent(author)}`,
       {
@@ -51,7 +51,7 @@ export default function BookPage() {
     // Fortschritt vom Backend laden (mit der korrekten UUID)
     try {
       const progressRes = await fetch(
-        `http://localhost:3000/api/progress/${data.id}`,
+        `https://gutenread-4cle.onrender.com/api/progress/${data.id}`,
         {
           credentials: "include",
         },
