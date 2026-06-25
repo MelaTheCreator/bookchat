@@ -63,6 +63,8 @@ export const register = async (req, res) => {
     // Token als geschütztes Cookie speichern
     res.cookie("token", token, {
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     // Nicht geheime User:innendaten zurückgeben
@@ -115,6 +117,8 @@ export const login = async (req, res) => {
     // JWT in Cookie gespeichert
     res.cookie("token", token, {
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     return res.json({

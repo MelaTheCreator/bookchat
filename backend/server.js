@@ -13,12 +13,12 @@ import aiRouter from "./routes/aiRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
 
 const PORT = process.env.PORT || 3000;
-
+const ORIGIN = process.env.ORIGIN;
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ORIGIN,
     credentials: true, // damit cookies wirklich mitgeschickt werden
   }),
 );

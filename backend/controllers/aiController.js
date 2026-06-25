@@ -16,7 +16,7 @@ export const chat = async (req, res) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "phi3:mini",
+        model: "llama3.1:8b",
         prompt: `User message: ${message}\nBook ID: ${bookId}\nCurrent section: ${chunkIndex}`,
         stream: false,
       }),
