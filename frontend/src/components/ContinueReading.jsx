@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "./config";
+
+const BASE_URL = API_URL;
 
 export default function ContinueReading({ onSelect }) {
   const [books, setBooks] = useState([]);
@@ -12,7 +15,7 @@ export default function ContinueReading({ onSelect }) {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://gutenread-4cle.onrender.com/api/progress",
+        `${BASE_URL}/api/progress`, // "https://gutenread-4cle.onrender.com/api/progress"
         {
           credentials: "include",
         },

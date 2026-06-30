@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { API_URL } from "./config";
+
+const BASE_URL = API_URL;
 
 export default function AIChat({ bookId, chunkIndex, chunkText }) {
   const [messages, setMessages] = useState([]);
@@ -15,7 +18,8 @@ export default function AIChat({ bookId, chunkIndex, chunkText }) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/chat", {
+      const res = await fetch(`${BASE_URL}/api/chat`, {
+        // "http://localhost:3000/api/chat"
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

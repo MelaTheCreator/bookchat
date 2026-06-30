@@ -3,6 +3,9 @@ import BookList from "../components/BookList";
 import ContinueReading from "../components/ContinueReading";
 import Chat from "../components/Chat";
 import AIChat from "../components/AiChat";
+import { API_URL } from "./config";
+
+const BASE_URL = API_URL;
 
 export default function BookPage() {
   const [selectedBook, setSelectedBook] = useState(null);
@@ -11,7 +14,8 @@ export default function BookPage() {
 
   const saveProgress = async (bookId, chunkIndex) => {
     try {
-      await fetch("https://gutenread-4cle.onrender.com/api/progress", {
+      await fetch(`${BASE_URL}/api/progress"`, {
+        // "https://gutenread-4cle.onrender.com/api/progress"
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -28,7 +32,8 @@ export default function BookPage() {
 
     const author = book.author || book.authors?.[0]?.name || "";
     const response = await fetch(
-      `https://gutenread-4cle.onrender.com/api/books/${gutenbergId}/text?title=${encodeURIComponent(
+      `${BASE_URL}/api/books/${gutenbergId}/text?title=${encodeURIComponent(
+        // `https://gutenread-4cle.onrender.com/api/books/${gutenbergId}/text?title=${encodeURIComponent(...
         book.title,
       )}&author=${encodeURIComponent(author)}`,
       {
@@ -51,7 +56,7 @@ export default function BookPage() {
     // Fortschritt vom Backend laden (mit der korrekten UUID)
     try {
       const progressRes = await fetch(
-        `https://gutenread-4cle.onrender.com/api/progress/${data.id}`,
+        `${BASE_URL}/api/progress/${data.id}`, // https://gutenread-4cle.onrender.com/api/progress/${data.id}
         {
           credentials: "include",
         },
