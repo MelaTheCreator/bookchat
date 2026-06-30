@@ -1,4 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { API_URL } from "./config";
+
+const BASE_URL = API_URL;
 
 const AuthContext = createContext();
 
@@ -11,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const res = await fetch(
-          "https://gutenread-4cle.onrender.com/api/auth/profile",
+          `${BASE_URL}/api/auth/profile`, // "https://gutenread-4cle.onrender.com/api/auth/profile"
           {
             credentials: "include",
           },
@@ -36,7 +39,8 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => setUser(userData);
 
   const logout = async () => {
-    await fetch("https://gutenread-4cle.onrender.com/api/auth/logout", {
+    await fetch(`${BASE_URL}/api/auth/logout`, {
+      // "https://gutenread-4cle.onrender.com/api/auth/logout"
       method: "POST",
       credentials: "include",
     });

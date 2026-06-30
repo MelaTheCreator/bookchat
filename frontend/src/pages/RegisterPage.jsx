@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
+
+const BASE_URL = API_URL;
 
 export default function RegisterPage() {
   const { login } = useAuth();
@@ -16,7 +19,7 @@ export default function RegisterPage() {
     setError("");
 
     const response = await fetch(
-      "https://gutenread-4cle.onrender.com/api/auth/register",
+      `${BASE_URL}/api/auth/register`, // "https://gutenread-4cle.onrender.com/api/auth/register"
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
