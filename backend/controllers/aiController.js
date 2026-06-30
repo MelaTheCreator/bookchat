@@ -25,7 +25,7 @@ export const chat = async (req, res) => {
             {
               role: "system",
               content:
-                "You are a helpful AI assistant that explains book content clearly.",
+                "You are a helpful AI assistant that explains book content clearly. Please answer in the language in which the question was asked.",
             },
             {
               role: "user",
