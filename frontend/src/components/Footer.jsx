@@ -7,6 +7,9 @@ export default function Footer() {
       <Link to="/impressum" className="footer-link">
         Imprint
       </Link>
+      <Link to="/datenschutz" className="footer-link">
+        Privacy Policy
+      </Link>
     </footer>
   );
 }
