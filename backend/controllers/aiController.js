@@ -1,4 +1,7 @@
 import fetch from "node-fetch";
+import { Mistral } from "@mistralai/mistralai";
+
+const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
 
 export const chat = async (req, res) => {
   try {
