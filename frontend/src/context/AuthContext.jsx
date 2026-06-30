@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { API_URL } from "./config";
+import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL;
 
