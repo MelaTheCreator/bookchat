@@ -3,7 +3,7 @@ import BookList from "../components/BookList";
 import ContinueReading from "../components/ContinueReading";
 import Chat from "../components/Chat";
 import AIChat from "../components/AiChat";
-import { API_URL } from "./config";
+import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL;
 

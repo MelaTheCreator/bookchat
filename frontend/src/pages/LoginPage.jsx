@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "./config";
+import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL;
 
