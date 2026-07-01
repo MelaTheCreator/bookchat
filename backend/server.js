@@ -16,12 +16,15 @@ const PORT = process.env.PORT || 3000;
 const ORIGIN = process.env.ORIGIN;
 const app = express();
 
+console.log({ ORIGIN });
+
 app.use(
   cors({
     origin: ORIGIN,
     credentials: true, // damit cookies wirklich mitgeschickt werden
   }),
 );
+
 app.use(express.json());
 app.use(cookieParser());
 
