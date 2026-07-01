@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Cormorant", serif;
+}
+
 .dashboardwrapper,
 .page-wrapper {
   max-width: 800px;
@@ -46,6 +52,7 @@ body,
   margin-bottom: 1rem;
   color: #ee1fa980;
 }
+
 .dashboardtext,
 .page-text {
   margin-bottom: 0.75rem;
@@ -115,6 +122,7 @@ body,
   line-height: 1.6;
   white-space: pre-wrap;
   text-align: center;
+  font-family: "Cormorant", serif;
 }
 
 .bookpage-nav {
@@ -181,6 +189,7 @@ body,
   overflow: hidden;
   box-sizing: border-box;
 }
+
 .chat-box-ai {
   background: #fbf0d8;
   border: 1px solid #ccc;
@@ -321,18 +330,19 @@ body,
 }
 
 /* Header Styles */
-.header {
+
+/* .header {
   padding: 1rem;
   background: #2c09f1;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.header-logo {
+/* .header-logo {
   margin: 0;
-}
+} */
 
 .header-nav {
   display: flex;
