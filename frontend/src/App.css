@@ -48,17 +48,18 @@
   font-display: swap;
 }
 
-body {
+body,
+.unicode-copyright {
   font-family: "Inter", sans-serif;
+  font-weight: 400;
 }
 
 h1,
 h2,
 h3,
 h4,
-.header-link,
-.header-user,
-.header-button {
+header,
+footer {
   font-family: "Cormorant", serif;
   font-weight: 600;
 }
@@ -100,9 +101,9 @@ body,
 .layout-main {
   flex: 1;
   padding: 2rem;
-  background-image: url("/bookpages.jpg");
+  /* background-image: url("/bookpages.jpg");
   background-size: 110%;
-  background-position: center;
+  background-position: center; */
 }
 
 .dashboardtitle,
@@ -436,7 +437,7 @@ body,
 } */
 
 /* Footer Styles */
-
+/* 
 .footer {
   padding: 1rem;
   background: #2c09f1;
@@ -444,16 +445,16 @@ body,
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.footer-link {
+/* .footer-link {
   color: white;
   text-decoration: none;
 }
 
 .footer-link:hover {
   text-decoration: underline;
-}
+} */
 
 /* Continue Reading Styles */
 .continue-reading {

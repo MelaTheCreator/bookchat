@@ -9,7 +9,7 @@ export default function Header() {
       <h1 className="header-logo text-5xl m-0">GutenTalk</h1>
       <nav className="header-nav flex gap-4 items-center text-2xl">
         {!user && (
-          <>
+          <div>
             <Link
               to="/login"
               className="header-link text-black no-underline hover:underline"
@@ -22,7 +22,7 @@ export default function Header() {
             >
               Register
             </Link>
-          </>
+          </div>
         )}
 
         {user && (
