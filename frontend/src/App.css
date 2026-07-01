@@ -1,7 +1,66 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-Italic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.header-link,
+.header-user,
+.header-button {
   font-family: "Cormorant", serif;
+  font-weight: 600;
 }
 
 .dashboardwrapper,
@@ -344,21 +403,21 @@ body,
   margin: 0;
 } */
 
-.header-nav {
+/* .header-nav {
   display: flex;
   gap: 1rem;
   align-items: center;
-}
-
+} */
+/* 
 .header-link {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
 .header-link:hover {
   text-decoration: underline;
-}
-
+} */
+/* 
 .header-button {
   background: #ee1fa990;
   color: white;
@@ -370,13 +429,14 @@ body,
 
 .header-button:hover {
   background: #ee1fa9;
-}
+} */
 
-.header-user {
+/* .header-user {
   margin-right: 1rem;
-}
+} */
 
 /* Footer Styles */
+
 .footer {
   padding: 1rem;
   background: #2c09f1;
