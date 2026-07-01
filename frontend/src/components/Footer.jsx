@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="footer text-2xl flex items-center justify-between bg-[#F2C94C] p-8 text-black">
+    <footer className="footer text-xl flex items-center justify-between bg-[#F2C94C] p-8 text-black">
       <p className="flex gap-1 items-center justify-center">
         <span className="unicode-copyright">&copy;</span>{" "}
         {new Date().getFullYear()} GutenTalk
