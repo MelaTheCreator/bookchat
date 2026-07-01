@@ -30,7 +30,7 @@ export default function Header() {
             <span className="header-user mr-4">Hello {user.username}!</span>
             <button
               onClick={logout}
-              className="header-button bg-black text-white border-0 px-6 py-2 cursor-pointer rounded-3xl hover:bg-white hover:text-black"
+              className="header-button bg-black text-white border-0 px-4 py-2 cursor-pointer rounded-3xl hover:bg-white hover:text-black"
             >
               Logout
             </button>
