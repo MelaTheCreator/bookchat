@@ -9,6 +9,7 @@ import BookPage from "./pages/BookPage";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
   return (
@@ -28,7 +29,8 @@ export default function App() {
               }
             />
             <Route path="/impressum" element={<ImpressumPage />} />
-            <Route path="/datenschutz" element={<PrivacyPolicy />}></Route>
+            <Route path="/datenschutz" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>
