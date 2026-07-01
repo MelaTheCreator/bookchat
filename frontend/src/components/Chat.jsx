@@ -86,28 +86,30 @@ export default function Chat({ bookId, chunkIndex }) {
     <div className="chat-wrapper max-w-[350px] flex flex-col mb-8">
       {/* Toggle Button */}
       <button
-        className="chat-toggle-btn mb-2 p-4 cursor-pointer bg-[#2f7070] rounded-[10px] border-0"
+        className="chat-toggle-btn mb-2 p-4 cursor-pointer bg-[var(--color-accent)] rounded-[10px] border-0"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? "close Chat" : "open Chat"}
       </button>
 
       {/* Wenn geschlossen */}
-      {!isOpen && <div className="chat-closed-info italic text-[#666]"></div>}
+      {!isOpen && (
+        <div className="chat-closed-info italic text-[var(--color-muted)]"></div>
+      )}
 
       {/* Wenn offen */}
       {isOpen && (
-        <div className="chat-box bg-[#2f7070] border border-[#ccc] rounded-[10px] p-4 flex flex-col h-[300px] overflow-hidden box-border">
+        <div className="chat-box bg-[var(--color-accent)] border border-[#ccc] rounded-[10px] p-4 flex flex-col h-[300px] overflow-hidden box-border">
           <h3 className="chat-title text-2xl text-center mb-2">Chat</h3>
 
           {/* Warnung */}
           {warning && (
-            <div className="chat-warning bg-[#2f7070] text-[#2c09f1] p-2 rounded mb-2 text-center font-bold">
+            <div className="chat-warning bg-[var(--color-accent)] text-[#2c09f1] p-2 rounded mb-2 text-center font-bold">
               {warning}
             </div>
           )}
 
-          <div className="chat-messages flex-1 *:overflow-y-auto mb-4 bg-[#f7f7f7] p-2 border border-[#ccc] rounded min-h-0">
+          <div className="chat-messages flex-1 *:overflow-y-auto mb-4 bg-[var(--color-paper)] rounded-xl p-2 border border-[var(--color-border)] min-h-0">
             {messages.length === 0 && (
               <p className="chat-empty m-0 text-[#555] text-sm">
                 Start a chat with other people, who are on the same page as you
@@ -116,7 +118,7 @@ export default function Chat({ bookId, chunkIndex }) {
             )}
             {messages.map((m, i) => (
               <div key={i} className="chat-message flex gap-2">
-                <strong className="chat-username text-[#2c09f1]">
+                <strong className="chat-username text-[var(--color-text)]">
                   {m.username}:
                 </strong>{" "}
                 {m.text}
@@ -126,7 +128,7 @@ export default function Chat({ bookId, chunkIndex }) {
 
           <div className="chat-input-row flex gap-2">
             <textarea
-              className="chat-input flex-1 p-2 border border-[#ccc]rounded focus:outline-none focus:border-[#888]"
+              className="chat-input flex-1 p-2 border border-[var(--color-border)]rounded focus:outline-none focus:border-[var(--color-border-focus]"
               value={input}
               rows={1}
               onChange={(e) => setInput(e.target.value)}
@@ -139,7 +141,7 @@ export default function Chat({ bookId, chunkIndex }) {
               }}
             />
             <button
-              className="chat-button bg-black border-0 rounded-3xl py-2 px-4 text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="chat-button bg-[var(--color-black)] border-0 rounded-3xl py-2 px-4 text-[var(--color-text-light)] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={sendMessage}
             >
               send

@@ -50,32 +50,56 @@
 
 :root {
   /* Farben */
-  --color-primary: #f2c94c;
-  --color-primary-light: #d9b340;
+  --color-yellow: #f2c94c;
+  --color-yellow-80: #f2c94ccc;
+  --color-yellow-60: #f2c94c99;
 
   --color-paper: #fafaf7;
   --color-white: #ffffff;
   --color-black: #111111;
 
-  --color-accent: #1f4a4a;
-  --color-accent-hover: #163737;
+  --color-accent: #b8bdce;
+  --color-accent-hover: ;
+
+  /* pink: #ee1fa980; */
+  /* petrol: #2f7070; */
+  /* helles stahlblau: #8dacd6; */
+  /* schiefergrau: #878996; */
+  /* petrolblau: #2f5d7e; */
+  /* espressobraun: #4a3528; */
 
   /* Linien */
   --color-line: #0000000d;
 
   /* Rahmen */
-  --color-border: #d6d6d6;
+  --color-border: #ccc;
+  --color-border-focus: #888;
 
   /* Text */
   --color-text: var(--color-black);
+  --color-text-light: var(--color-white);
   --color-text-muted: #666666;
+  --color-text-warning: #c52a2a;
 }
 
 body,
 .unicode-copyright {
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  /* background-color: #fafaf7; */
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body,
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
@@ -102,20 +126,6 @@ footer {
   line-height: 1.6;
 }
 
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body,
-#root {
-  display: flex;
-  flex-direction: column;
-}
-
 /* .layout {
   display: flex;
   flex-direction: column;
@@ -131,7 +141,7 @@ body,
 
   background-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.05) 1.5px,
+    var(--color-line) 1.5px,
     transparent 1.5px
   );
 
@@ -142,7 +152,7 @@ body,
 .page-title {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #ee1fa980;
+  color: var(--color-text);
 }
 
 .dashboardtext,
@@ -380,15 +390,7 @@ body,
   width: 250px;
   padding: 1rem;
   color: white;
-  /* background: #ee1fa980; */
-  /* background: #2f7070; */
-  /* background: #8dacd6; */
-  /* background: black; */
-  /* background: #878996; */
-  background: #b8bdce;
-  /* background: rgb(176, 176, 177); */
-  /* background: #2f5d7e; */
-  /* background: #4a3528; */
+
   border-radius: 10px;
   height: fit-content;
   animation: wobble 0.6s ease-in-out;
