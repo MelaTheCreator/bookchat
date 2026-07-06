@@ -8,7 +8,6 @@ const BASE_URL = API_URL;
 export default function RegisterPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,19 +17,14 @@ export default function RegisterPage() {
     event.preventDefault();
     setError("");
 
-    const response = await fetch(
-      `${BASE_URL}/api/auth/register`, // "https://gutenread-4cle.onrender.com/api/auth/register"
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // erlaubt cookies
-        body: JSON.stringify({ username, email, password }),
-      },
-    );
+    const response = await fetch(`${BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ username, email, password }),
+    });
 
     const data = await response.json();
-
-    console.log(data);
 
     if (!response.ok) {
       setError(data.msg || "Registrierung fehlgeschlagen");
@@ -38,40 +32,49 @@ export default function RegisterPage() {
     }
 
     login(data.user);
-    console.log(data.user);
     navigate("/books");
   };
 
   return (
-    <div className="page-wrapper">
-      <h2 className="page-title">Register</h2>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button className="page-button" type="submit">
-          register
-        </button>
-        {error && <p className="form-error">{error}</p>}
-      </form>
-    </div>
+    <main className="mx-auto flex min-h-[calc(100vh-150px)] max-w-md flex-col justify-center px-6 py-10">
+      <div className="rounded-[32px] border border-slate-200 bg-white/90 p-8 shadow-sm">
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
+          Register
+        </h2>
+        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-amber-100"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-amber-100"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-amber-100"
+          />
+          <button
+            className="w-full rounded-full bg-[var(--color-yellow)] px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-[var(--color-yellow-80)]"
+            type="submit"
+          >
+            Register
+          </button>
+          {error && <p className="text-sm text-rose-600">{error}</p>}
+        </form>
+      </div>
+    </main>
   );
 }
