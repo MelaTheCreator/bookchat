@@ -26,8 +26,8 @@ export default function BookList({ onSelect }) {
   }, [searchTerm]);
 
   return (
-    <div className="booklist-sidebar">
-      <h3>Books</h3>
+    <div className="booklist-sidebar bg-[var(--color-accent)] text-[var(--color-text)]">
+      <h3 className="text-2xl">Books</h3>
       <input
         type="text"
         placeholder="search..."
@@ -36,7 +36,7 @@ export default function BookList({ onSelect }) {
         className="booklist-search-input"
       />
       {/* Loading Indicator */}
-      {loading && <div className="loading-spinner">Loading...</div>}
+      {loading && <div className="loading-spinner">Loading ...</div>}
 
       {!loading &&
         books.map((book) => (
