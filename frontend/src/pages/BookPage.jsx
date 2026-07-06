@@ -14,7 +14,7 @@ export default function BookPage() {
 
   const saveProgress = async (bookId, chunkIndex) => {
     try {
-      await fetch(`${BASE_URL}/api/progress"`, {
+      await fetch(`${BASE_URL}/api/progress`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -26,10 +26,9 @@ export default function BookPage() {
   };
 
   const loadBookText = async (book) => {
-    // Gutenberg-ID bestimmen (von Gutendex oder von Backend)
     const gutenbergId = book.gutenbergId || book.id;
-
     const author = book.author || book.authors?.[0]?.name || "";
+
     const response = await fetch(
       `${BASE_URL}/api/books/${gutenbergId}/text?title=${encodeURIComponent(
         book.title,
@@ -47,11 +46,9 @@ export default function BookPage() {
     const data = await response.json();
     setChunks(data.chunks || ["Kein Text verfügbar"]);
 
-    // Backend gibt die korrekte UUID zurück – diese muss für Progress verwendet werden
     const bookWithUUID = { ...book, id: data.id };
     setSelectedBook(bookWithUUID);
 
-    // Fortschritt vom Backend laden (mit der korrekten UUID)
     try {
       const progressRes = await fetch(`${BASE_URL}/api/progress/${data.id}`, {
         credentials: "include",
@@ -73,9 +70,7 @@ export default function BookPage() {
     if (currentIndex < chunks.length - 1) {
       const newIndex = currentIndex + 1;
       setCurrentIndex(newIndex);
-      if (selectedBook) {
-        saveProgress(selectedBook.id, newIndex);
-      }
+      selectedBook && saveProgress(selectedBook.id, newIndex);
     }
   };
 
@@ -83,57 +78,69 @@ export default function BookPage() {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1;
       setCurrentIndex(newIndex);
-      if (selectedBook) {
-        saveProgress(selectedBook.id, newIndex);
-      }
+      selectedBook && saveProgress(selectedBook.id, newIndex);
     }
   };
+
   const currentChunkText = chunks.length > 0 ? chunks[currentIndex] : "no text";
 
   return (
-    <div className="bookpage-container">
-      <div>
+    <div className="grid gap-8 lg:grid-cols-[minmax(260px,320px)_1fr_minmax(320px,380px)]">
+      <div className="space-y-6">
         <BookList onSelect={loadBookText} />
         <ContinueReading onSelect={loadBookText} />
       </div>
-      <div className="bookpage-content">
-        {!selectedBook && (
-          <p className="bookpage-empty"> Please select a book.</p>
-        )}
 
-        {selectedBook && (
-          <>
-            <h2 className="bookpage-title">{selectedBook.title}</h2>
-
-            <div className="bookpage-readerbox">
-              <div className="bookpage-text">{chunks[currentIndex]}</div>
+      <div className="rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-sm">
+        {!selectedBook ? (
+          <div className="flex items-center justify-center   p-8 text-center text-slate-600">
+            Please select a book.
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
+                {selectedBook.title}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {selectedBook.author ||
+                  selectedBook.authors?.[0]?.name ||
+                  "Unknown author"}
+              </p>
             </div>
 
-            <div className="bookpage-nav">
+            <div className="rounded-[28px] border border-slate-200 bg-[var(--color-yellow-soft)] p-6 shadow-inner">
+              <div className="prose prose-slate max-w-none whitespace-pre-wrap text-slate-900 leading-7">
+                {chunks[currentIndex]}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <button
-                className="bookpage-button"
+                className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={prevChunk}
                 disabled={currentIndex === 0}
               >
-                back
+                Back
               </button>
 
-              <span className="bookpage-progress">
-                section {currentIndex + 1} / {chunks.length}
+              <span className="text-sm font-medium text-slate-600">
+                Section {currentIndex + 1} / {chunks.length}
               </span>
 
               <button
-                className="bookpage-button"
+                className="rounded-full bg-[var(--color-yellow)] px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-[var(--color-yellow-80)] disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={nextChunk}
                 disabled={currentIndex === chunks.length - 1}
               >
-                next
+                Next
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
-      <div>
+
+      <div className="space-y-6">
         {selectedBook && (
           <Chat bookId={selectedBook.id} chunkIndex={currentIndex} />
         )}

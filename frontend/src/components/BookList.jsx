@@ -4,7 +4,7 @@ export default function BookList({ onSelect }) {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
-  // Suche mit Debounce
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchTerm.trim()) {
@@ -16,38 +16,52 @@ export default function BookList({ onSelect }) {
           .then((data) => {
             setBooks(data.results.slice(0, 5));
           })
-          .finally(() => {
-            setLoading(false);
-          });
+          .finally(() => setLoading(false));
+      } else {
+        setBooks([]);
       }
-    }, 2000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
   return (
-    <div className="booklist-sidebar bg-[var(--color-accent)] text-[var(--color-text)]">
-      <h3 className="text-2xl">Books</h3>
+    <div className="space-y-4 rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-sm">
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-2xl font-semibold text-slate-900">Books</h3>
+        <span className="text-sm text-slate-500">search</span>
+      </div>
+
       <input
         type="text"
-        placeholder="search..."
+        placeholder="Search books..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="booklist-search-input"
+        className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-amber-100"
       />
-      {/* Loading Indicator */}
-      {loading && <div className="loading-spinner">Loading ...</div>}
 
-      {!loading &&
-        books.map((book) => (
-          <div
-            key={book.id}
-            className="booklist-book-item"
-            onClick={() => onSelect(book)}
-          >
-            {book.title}
-          </div>
-        ))}
+      {loading ? (
+        <div className="rounded-3xl bg-slate-50 p-4 text-sm text-slate-500">
+          Loading ...
+        </div>
+      ) : books.length === 0 ? (
+        <div className="rounded-3xl bg-slate-50 p-4 text-sm text-slate-500">
+          Search for a book to begin.
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {books.map((book) => (
+            <button
+              key={book.id}
+              className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm text-slate-900 transition hover:border-slate-300 hover:bg-slate-100"
+              onClick={() => onSelect(book)}
+              type="button"
+            >
+              {book.title}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

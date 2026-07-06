@@ -13,9 +13,13 @@ export default function NotFoundPage() {
   }, [navigate]);
 
   return (
-    <div style={{ textAlign: "center", padding: "2rem" }}>
-      <h2>Website not found</h2>
-      <p>You will be redirected...</p>
+    <div className="mx-auto flex min-h-[calc(100vh-150px)] items-center justify-center px-6 py-10 text-center">
+      <div className="rounded-[28px] border border-slate-200 bg-white/90 p-10 shadow-sm">
+        <h2 className="text-3xl font-semibold text-slate-900">
+          Website not found
+        </h2>
+        <p className="mt-4 text-slate-600">You will be redirected...</p>
+      </div>
     </div>
   );
 }

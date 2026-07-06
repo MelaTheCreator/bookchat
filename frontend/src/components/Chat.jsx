@@ -6,29 +6,16 @@ export default function Chat({ bookId, chunkIndex }) {
   const userId = user?.id;
   const username = user?.username;
 
-  console.log("Chat - user:", user);
-  console.log("Chat - username:", username);
-
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-
-  // Chat ein-/ausklappen
   const [isOpen, setIsOpen] = useState(true);
-
-  // Spam-Warnung
   const [warning, setWarning] = useState("");
-
-  // Rate-Limit: Zeitstempel der letzten Nachrichten
   const [messageTimes, setMessageTimes] = useState([]);
-
   const wsRef = useRef(null);
 
   useEffect(() => {
-    // Nachrichten löschen beim Channel-Wechsel
     setMessages([]);
-
     const channel = `book-${bookId}-chunk-${chunkIndex}`;
-
     wsRef.current = new WebSocket(
       `wss://gutenread-4cle.onrender.com/?channel=${channel}`,
     );
@@ -51,24 +38,17 @@ export default function Chat({ bookId, chunkIndex }) {
 
   const sendMessage = () => {
     const now = Date.now();
-
-    // Rate-Limit: 5 Nachrichten in 10 Sekunden
     const windowMs = 10_000;
     const maxMessages = 5;
     const recent = messageTimes.filter((t) => now - t < windowMs);
 
     if (recent.length >= maxMessages) {
-      setWarning("slow down.");
-
-      // Warnung nach 3 Sekunden ausblenden
+      setWarning("Slow down.");
       setTimeout(() => setWarning(""), 3000);
-
       return;
     }
 
-    // Zeitstempel hinzufügen
     setMessageTimes([...recent, now]);
-
     if (!input.trim()) return;
 
     const msg = {
@@ -83,56 +63,57 @@ export default function Chat({ bookId, chunkIndex }) {
   };
 
   return (
-    <div className="chat-wrapper max-w-[350px] flex flex-col mb-8">
-      {/* Toggle Button */}
+    <div className="space-y-3 rounded-[32px] border border-slate-200 bg-white/90 p-4 shadow-sm">
       <button
-        className="chat-toggle-btn mb-2 p-4 cursor-pointer bg-[var(--color-accent)] rounded-[10px] border-0"
+        className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? "close Chat" : "open Chat"}
+        {isOpen ? "Close Chat" : "Open Chat"}
       </button>
 
-      {/* Wenn geschlossen */}
-      {!isOpen && (
-        <div className="chat-closed-info italic text-[var(--color-muted)]"></div>
-      )}
+      {!isOpen ? (
+        <div className="text-sm italic text-slate-500">Chat closed</div>
+      ) : (
+        <div className="flex h-[330px] flex-col gap-4">
+          <div>
+            <h3 className="text-2xl font-semibold text-slate-900">Chat</h3>
+          </div>
 
-      {/* Wenn offen */}
-      {isOpen && (
-        <div className="chat-box bg-[var(--color-accent)] border border-[#ccc] rounded-[10px] p-4 flex flex-col h-[300px] overflow-hidden box-border">
-          <h3 className="chat-title text-2xl text-center mb-2">Chat</h3>
-
-          {/* Warnung */}
           {warning && (
-            <div className="chat-warning bg-[var(--color-accent)] text-[#2c09f1] p-2 rounded mb-2 text-center font-bold">
+            <div className="rounded-2xl bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-800">
               {warning}
             </div>
           )}
 
-          <div className="chat-messages flex-1 *:overflow-y-auto mb-4 bg-[var(--color-paper)] rounded-xl p-2 border border-[var(--color-border)] min-h-0">
-            {messages.length === 0 && (
-              <p className="chat-empty m-0 text-[#555] text-sm">
-                Start a chat with other people, who are on the same page as you
-                are.
+          <div className="flex-1 overflow-y-auto rounded-3xl border border-slate-200 bg-slate-50 p-4">
+            {messages.length === 0 ? (
+              <p className="text-sm text-slate-500">
+                Start a chat with other readers on the same page.
               </p>
-            )}
-            {messages.map((m, i) => (
-              <div key={i} className="chat-message flex gap-2">
-                <strong className="chat-username text-[var(--color-text)]">
-                  {m.username}:
-                </strong>{" "}
-                {m.text}
+            ) : (
+              <div className="space-y-3">
+                {messages.map((m, i) => (
+                  <div
+                    key={i}
+                    className="space-y-1 rounded-3xl bg-white/90 p-3 shadow-sm"
+                  >
+                    <strong className="block text-sm text-slate-900">
+                      {m.username}:
+                    </strong>
+                    <p className="text-sm leading-6 text-slate-700">{m.text}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
 
-          <div className="chat-input-row flex gap-2">
+          <div className="flex gap-3">
             <textarea
-              className="chat-input flex-1 p-2 border border-[var(--color-border)]rounded focus:outline-none focus:border-[var(--color-border-focus]"
+              className="flex-1 rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-amber-100"
               value={input}
               rows={1}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="write a message ..."
+              placeholder="Write a message..."
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -141,10 +122,10 @@ export default function Chat({ bookId, chunkIndex }) {
               }}
             />
             <button
-              className="chat-button bg-[var(--color-black)] border-0 rounded-3xl py-2 px-4 text-[var(--color-text-light)] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="whitespace-nowrap rounded-3xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
               onClick={sendMessage}
             >
-              send
+              Send
             </button>
           </div>
         </div>

@@ -5,38 +5,41 @@ export default function Header() {
   const { user, logout } = useAuth();
 
   return (
-    <header className="header flex items-center justify-between bg-[var(--color-yellow)] p-8 text[var(--color-black)]">
-      <h1 className="header-logo text-5xl m-0">GutenTalk</h1>
-      <nav className="header-nav flex gap-4 items-center text-2xl">
-        {!user && (
-          <div className="flex gap-4">
-            <Link
-              to="/login"
-              className="header-link no-underline hover:underline"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="header-link no-underline hover:underline"
-            >
-              Register
-            </Link>
-          </div>
-        )}
+    <header className="bg-[var(--color-yellow)] text-[var(--color-black)] shadow-sm">
+      <div className="mx-auto flex max-w-9xl flex-col gap-4 px-3 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <Link to="/" className="text-4xl font-semibold tracking-tight">
+          GutenTalk
+        </Link>
 
-        {user && (
-          <div>
-            <span className="header-user mr-4">Hello {user.username}!</span>
-            <button
-              onClick={logout}
-              className="header-button bg-[var(--color-black)] text-[var(--color-text-light)] border-0 px-4 py-2 cursor-pointer rounded-3xl hover:bg-[var(--color-white)] hover:text-[var(--color-text)]"
-            >
-              Logout
-            </button>
-          </div>
-        )}
-      </nav>
+        <nav className="flex flex-wrap items-center gap-4 text-lg">
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="rounded-full border border-slate-900/10 bg-white/80 px-4 py-2 text-slate-900 transition hover:bg-white"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-full border border-slate-900/10 bg-slate-900/10 px-4 py-2 text-slate-900 transition hover:bg-slate-100"
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-lg">Hello {user.username}!</span>
+              <button
+                onClick={logout}
+                className="rounded-full bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-700"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }
