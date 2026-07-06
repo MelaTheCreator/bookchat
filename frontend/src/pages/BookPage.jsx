@@ -111,6 +111,7 @@ export default function BookPage() {
 
             <div className="rounded-[28px] border border-slate-200 bg-[var(--color-yellow-soft)] p-6 shadow-inner">
               <div className="prose prose-slate max-w-none whitespace-pre-wrap text-slate-900 leading-7">
+                {/* whitespace-pre-wrap macht umbruchverhalten aus: white-space: pre-wrap; Zeilenumbrüche (\n) werden beibehalten. Mehrere Leerzeichen bleiben erhalten. Lange Zeilen dürfen umgebrochen werden. blocksatz sonst mit text-justify setzen */}
                 {chunks[currentIndex]}
               </div>
             </div>

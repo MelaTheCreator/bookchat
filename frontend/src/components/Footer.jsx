@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer text-xl flex items-center justify-between bg-[var(--color-yellow)] p-8 text-[var(--color-text)]">
       <p className="flex gap-1 items-center justify-center">
-        <span className="unicode-copyright">&copy;</span>{" "}
+        <span className="unicode-copyright">&copy;</span>
         {new Date().getFullYear()} GutenTalk
       </p>
       <div className="flex gap-4">

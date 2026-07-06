@@ -36,7 +36,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="mx-auto flex min-h-[calc(100vh-150px)] max-w-md flex-col justify-center px-6 py-10">
+    <main className="mx-auto flex max-w-md flex-col justify-center px-6 py-10">
       <div className="rounded-[32px] border border-slate-200 bg-white/90 p-8 shadow-sm">
         <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
           Register
