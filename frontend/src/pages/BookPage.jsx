@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import BookList from "../components/BookList";
 import ContinueReading from "../components/ContinueReading";
 import Chat from "../components/Chat";
@@ -11,6 +11,9 @@ export default function BookPage() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [chunks, setChunks] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 👉 Ref für automatisches Scrollen zum Titel
+  const titleRef = useRef(null);
 
   const saveProgress = async (bookId, chunkIndex) => {
     try {
@@ -33,9 +36,7 @@ export default function BookPage() {
       `${BASE_URL}/api/books/${gutenbergId}/text?title=${encodeURIComponent(
         book.title,
       )}&author=${encodeURIComponent(author)}`,
-      {
-        credentials: "include",
-      },
+      { credentials: "include" },
     );
 
     if (!response.ok) {
@@ -82,6 +83,26 @@ export default function BookPage() {
     }
   };
 
+  // 👉 Scroll bei Abschnittswechsel (Next / Back)
+  useEffect(() => {
+    if (titleRef.current) {
+      titleRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [currentIndex]);
+
+  // 👉 Scroll sobald ein neues Buch geladen wurde
+  useEffect(() => {
+    if (selectedBook && titleRef.current) {
+      titleRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [selectedBook]);
+
   const currentChunkText = chunks.length > 0 ? chunks[currentIndex] : "no text";
 
   return (
@@ -93,12 +114,13 @@ export default function BookPage() {
 
       <div className="rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-sm">
         {!selectedBook ? (
-          <div className="flex items-center justify-center   p-8 text-center text-slate-600">
+          <div className="flex items-center justify-center p-8 text-center text-slate-600">
             Please select a book.
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="space-y-2">
+            {/* 👉 Titel + Autor */}
+            <div className="space-y-2" ref={titleRef}>
               <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
                 {selectedBook.title}
               </h2>
@@ -110,8 +132,7 @@ export default function BookPage() {
             </div>
 
             <div className="rounded-[28px] border border-slate-200 bg-[var(--color-yellow-soft)] p-6 shadow-inner">
-              <div className="prose prose-slate max-w-none whitespace-pre-wrap text-slate-900 leading-7">
-                {/* whitespace-pre-wrap macht umbruchverhalten aus: white-space: pre-wrap; Zeilenumbrüche (\n) werden beibehalten. Mehrere Leerzeichen bleiben erhalten. Lange Zeilen dürfen umgebrochen werden. blocksatz sonst mit text-justify setzen */}
+              <div className="prose prose-slate max-w-none whitespace-pre-wrap leading-7 text-slate-900">
                 {chunks[currentIndex]}
               </div>
             </div>
