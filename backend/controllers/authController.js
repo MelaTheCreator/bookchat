@@ -19,6 +19,8 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET fehlt!");
 }
 
+const cookieOptions = { httpOnly: true, sameSite: "none", secure: true };
+
 // Registrierung von neuen User:innen // funktioniert
 // {
 //   "username": "Malle26",
@@ -61,11 +63,7 @@ export const register = async (req, res) => {
     });
 
     // Token als geschütztes Cookie speichern
-    res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: false,
-    });
+    res.cookie("token", token, cookieOptions);
 
     // Nicht geheime User:innendaten zurückgeben
     return res.status(201).json({
@@ -115,11 +113,7 @@ export const login = async (req, res) => {
     });
 
     // JWT in Cookie gespeichert
-    res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: false,
-    });
+    res.cookie("token", token, cookieOptions);
 
     return res.json({
       msg: "Eingelogged :)",
@@ -139,12 +133,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   // Cookie mit JWT löschen
-  res.clearCookie("token");
-  // hier ggfs. die Options mitgeben: {
-  //   httpOnly: true,
-  //   sameSite: "lax",
-  //   secure: false,
-  // }
+  res.clearCookie("token", cookieOptions);
 
   return res.status(200).json({ msg: "Und ausgelogged!" });
 };
