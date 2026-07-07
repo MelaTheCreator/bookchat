@@ -49,15 +49,30 @@
 }
 
 :root {
+  /* Farben */
   --color-yellow: #f2c94c;
   --color-yellow-80: #f2c94ccc;
   --color-yellow-soft: #fbf1c0;
-  --color-paper: #f7f5ee;
+
+  --color-paper: #fafaf7;
   --color-white: #ffffff;
   --color-black: #111111;
+
+  --color-accent: #b8bdce;
+  --color-accent-hover: ;
+
+  /* Linien */
+  --color-line: #0000000d;
+
+  /* Rahmen */
   --color-border: #d6d6d6;
-  --color-text-muted: #6b7280;
-  --color-line: rgba(0, 0, 0, 0.06);
+  --color-border-focus: #888;
+
+  /* Text */
+  --color-text: var(--color-black);
+  --color-text-light: var(--color-white);
+  --color-text-muted: #666666;
+  --color-text-warning: #c52a2a;
 }
 
 * {
@@ -75,7 +90,6 @@ body,
 body,
 .unicode-copyright {
   font-family: "Inter", sans-serif;
-  background: var(--color-paper);
   color: var(--color-black);
 }
 
@@ -86,6 +100,7 @@ h4,
 header,
 footer {
   font-family: "Cormorant", serif;
+  font-weight: 600;
 }
 
 button,
@@ -99,6 +114,16 @@ textarea {
 }
 
 .form-error {
-  color: #b91c1c;
+  color: var(--color-text-warning);
   font-size: 0.95rem;
+}
+
+.layout-main {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-line) 1.5px,
+    transparent 1.5px
+  );
+
+  background-size: 100% 32px;
 }

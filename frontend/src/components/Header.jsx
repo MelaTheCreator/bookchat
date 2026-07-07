@@ -7,11 +7,11 @@ export default function Header() {
   return (
     <header className="bg-[var(--color-yellow)] text-[var(--color-black)] shadow-sm">
       <div className="mx-auto flex max-w-9xl flex-col gap-4 px-3 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <Link to="/" className="text-4xl font-semibold tracking-tight">
+        <Link to="/" className="text-5xl font-semibold tracking-tight">
           GutenTalk
         </Link>
 
-        <nav className="flex flex-wrap items-center gap-4 text-lg">
+        <nav className="flex flex-wrap items-center gap-4 text-2xl">
           {!user ? (
             <>
               <Link
@@ -29,10 +29,10 @@ export default function Header() {
             </>
           ) : (
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-lg">Hello {user.username}!</span>
+              <span className="text-2xl">Hello {user.username}!</span>
               <button
                 onClick={logout}
-                className="rounded-full bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-700"
+                className="rounded-full bg-[var(--color-black)] px-4 py-2 text-white hover:bg-[var(--color-white)] transition hover:text-[var(--color-text)]"
               >
                 Logout
               </button>
