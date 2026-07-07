@@ -19,7 +19,12 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET fehlt!");
 }
 
-const cookieOptions = { httpOnly: true, sameSite: "none", secure: true };
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: "none",
+  secure: true,
+  path: "/",
+};
 
 // Registrierung von neuen User:innen // funktioniert
 // {
