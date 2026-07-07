@@ -63,8 +63,8 @@ export const register = async (req, res) => {
     // Token als geschütztes Cookie speichern
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "none",
-      secure: true,
+      sameSite: "lax",
+      secure: false,
     });
 
     // Nicht geheime User:innendaten zurückgeben
@@ -117,8 +117,8 @@ export const login = async (req, res) => {
     // JWT in Cookie gespeichert
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "none",
-      secure: true,
+      sameSite: "lax",
+      secure: false,
     });
 
     return res.json({
@@ -140,6 +140,11 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   // Cookie mit JWT löschen
   res.clearCookie("token");
+  // hier ggfs. die Options mitgeben: {
+  //   httpOnly: true,
+  //   sameSite: "lax",
+  //   secure: false,
+  // }
 
   return res.status(200).json({ msg: "Und ausgelogged!" });
 };
